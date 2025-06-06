@@ -1,0 +1,47 @@
+class Solution {
+public:
+    bool checkEqualPartitions(std::vector<int>& nums, long long target) {
+        int n = nums.size();
+        int totalSubsets = 1 << n;
+
+        for (int mask = 1; mask < totalSubsets - 1; ++mask) {
+            long long product1 = 1;
+            bool overflow = false;
+
+            for (int i = 0; i < n; ++i) {
+                if ((mask >> i) & 1) {
+                    if (product1 > target || target % nums[i] != 0) {
+                        overflow = true;
+                        break;
+                    }
+                    product1 *= nums[i];
+                    if (product1 > target) {
+                        overflow = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!overflow && product1 == target) {
+                long long product2 = 1;
+                bool overflow2 = false;
+                for (int i = 0; i < n; ++i) {
+                    if (!((mask >> i) & 1)) {
+                        if (product2 > target || target % nums[i] != 0) {
+                            overflow2 = true;
+                            break;
+                        }
+                        product2 *= nums[i];
+                        if (product2 > target) {
+                            overflow2 = true;
+                            break;
+                        }
+                    }
+                }
+                if (!overflow2 && product2 == target) return true;
+            }
+        }
+
+        return false;
+    }
+};
