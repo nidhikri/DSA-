@@ -1,0 +1,61 @@
+#include <stack> // Still need to include the stack header
+
+class MinStack {
+public:
+    // No need for std:: prefix if using namespace std; is active
+    stack<int> dataStack; // Stores all elements
+    stack<int> minStack;  // Stores minimums at each level
+
+    MinStack() {
+        // Constructor, no specific initialization needed as stacks are default-constructed
+    }
+    
+    void push(int val) {
+        dataStack.push(val);
+        
+        // If minStack is empty, or current val is less than or equal to the current minimum,
+        // push val onto minStack.
+        if (minStack.empty() || val <= minStack.top()) {
+            minStack.push(val);
+        } else {
+            // Otherwise, push the current minimum again to maintain its presence
+            // when elements above it are popped.
+            minStack.push(minStack.top());
+        }
+    }
+    
+    void pop() {
+        // Both stacks must pop to maintain consistency.
+        // The problem constraints guarantee pop will always be called on non-empty stacks.
+        dataStack.pop();
+        minStack.pop();
+    }
+    
+    int top() {
+        // The problem constraints guarantee top will always be called on non-empty stacks.
+        return dataStack.top();
+    }
+    
+    int getMin() {
+        // The problem constraints guarantee getMin will always be called on non-empty stacks.
+        return minStack.top();
+    }
+};
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack* obj = new MinStack();
+ * obj->push(val);
+ * obj->pop();
+ * int param_3 = obj->top();
+ * int param_4 = obj->getMin();
+ */
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack* obj = new MinStack();
+ * obj->push(val);
+ * obj->pop();
+ * int param_3 = obj->top();
+ * int param_4 = obj->getMin();
+ */
