@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int minimumSum(vector<int>& nums) {
+        int n = nums.size(), left = nums[0], res = INT_MAX;
+        for (int i = 1; i < n - 1; ++i) {
+            int right = nums[i + 1], curr = nums[i];
+            for (int j = i + 2; j < n; ++j) right = min(right , nums[j]);
+            if (left < curr && curr > right) {
+                res = min(res, left + curr + right);
+            }
+            left = min(left, curr);
+        }
+        return res == INT_MAX ? -1 : res;
+    }
+};
