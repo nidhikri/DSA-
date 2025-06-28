@@ -1,0 +1,27 @@
+class Solution {
+public:
+vector<int> getRow(int rowIndex) {
+        long long ans = 1;
+        vector<int> res;
+        res.push_back(1);
+        
+        for (int i = 1; i <= rowIndex; i++) {
+            ans = ans * (rowIndex - i + 1) / i;
+            res.push_back((int)ans);
+        }
+
+        return res;
+    }
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> res;
+        int i=0;
+        while(i<numRows){
+            vector<int>ans = getRow(i);
+            i++;
+            res.push_back(ans);
+            
+        }
+        return res;
+        
+    }
+};
