@@ -1,0 +1,29 @@
+class Solution {
+    void sum(int ind,int n,vector<int>&ds,vector<int>&candidates,int target,vector<vector<int>>&ans){
+        if(ind==n){
+            if(target == 0){
+                ans.push_back(ds);
+            }
+            return;
+        }
+        if(candidates[ind]<=target){
+            ds.push_back(candidates[ind]);
+            sum(ind, n,ds,candidates,target-candidates[ind],ans);
+            ds.pop_back();
+
+        }
+        sum(ind+1, n,ds,candidates,target,ans);
+
+        
+    }
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>>ans;
+        int ind = 0;
+        int n= candidates.size(); 
+        vector<int>ds;
+        sum(ind, n,ds,candidates,target,ans);
+        return ans;
+        
+    }
+};
