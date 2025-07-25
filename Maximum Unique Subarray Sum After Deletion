@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int maxSum(vector<int>& nums) {
+        unordered_set<int> seen;
+        int currSum = 0, maxSum = INT_MIN, lastSum = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            if (!seen.contains(nums[i])) {
+                currSum += nums[i];
+                maxSum = max(maxSum, currSum);
+                if (currSum < lastSum) currSum = lastSum;
+                lastSum = currSum;
+                seen.insert(nums[i]);
+            }
+        }
+        return maxSum;
+    }
+};
