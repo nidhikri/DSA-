@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int totalFruit(vector<int>& fruits) {
+        unordered_map<int,int>basket;
+        int maxx = 0, start=0;
+        for(int i=0;i<fruits.size();i++){
+            basket[fruits[i]]++;
+            while(basket.size()>2){
+                basket[fruits[start]]--;
+                if(basket[fruits[start]]==0){
+                    basket.erase(fruits[start]);
+                    
+                }
+                start++;
+            }
+            maxx=max(maxx,i-start+1);
+        }
+        return maxx;
+
+        
+    }
+};
